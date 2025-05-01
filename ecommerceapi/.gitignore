@@ -1,0 +1,62 @@
+# Build results
+bin/
+obj/
+out/
+
+# User-specific files
+# *.user
+# *.rsuser
+# *.suo
+# *.userosscache
+# *.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+# .idea/
+
+# ASP.NET generated files
+# wwwroot/node_modules/
+# wwwroot/lib/
+
+# Dotnet specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.dbmdl
+
+# Logs
+*.log
+
+# Secrets
+# secrets.json
+# *.pfx
+
+# Environment
+.env
+.env.*
+
+# Publish output
+publish/
+*.publishsettings
+
+# Dependency cache
+packages/
+.nuget/
+
+# Resharper
+# _ReSharper*/
+# *.DotSettings.user
+
+# Docker
+# **/Dockerfile.*
+# docker-compose.*
+# *.tar
+# *.gz
+
+# Others
+# *.vs/
+# *.ncrunchproject
+# TestResult.xml
+# coverage/

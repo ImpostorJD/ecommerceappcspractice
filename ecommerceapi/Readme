@@ -1,0 +1,7 @@
+# E Commerce Platform
+ This repository is a practice source code for me to apply modular monolith architecture.
+
+# Stack
+- Backend - C# ASP.NET CORE 
+- Frontend - ReactJS (VITE)
+- Database - PostgreSQL
