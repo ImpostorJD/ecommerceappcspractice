@@ -11,5 +11,9 @@
     <Nullable>enable</Nullable>
 
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include ="Products\Models\"/>
+    <Folder Include ="Products\Events\"/>
+  </ItemGroup>
 
 </Project>
