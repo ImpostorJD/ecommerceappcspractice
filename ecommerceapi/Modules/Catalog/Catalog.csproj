@@ -14,6 +14,7 @@
   <ItemGroup>
     <Folder Include ="Products\Models\"/>
     <Folder Include ="Products\Events\"/>
+    <Folder Include ="Products\Data\"/>
   </ItemGroup>
 
 </Project>

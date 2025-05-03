@@ -11,7 +11,12 @@ public static class CatalogModule
         // services.AddApplicationServices()
         //     .AddInfrastructureServices(configuration)
         //     .AddApiServices(configuration);
+        var connectionString = DatabaseConfig.GetConnectionString();
 
+            // Register the DbContext with Npgsql
+            services.AddDbContext<CatalogDbContext>(options =>
+                options.UseNpgsql(connectionString));
+                
         return services;
     }
 
@@ -21,7 +26,6 @@ public static class CatalogModule
         //     .UseInfrastructureServices()
         //     .UseApiServices();
 
-        
         return app;
     }
 }

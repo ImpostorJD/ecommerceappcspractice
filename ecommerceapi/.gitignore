@@ -2,7 +2,7 @@
 bin/
 obj/
 out/
-
+.env
 # User-specific files
 # *.user
 # *.rsuser
