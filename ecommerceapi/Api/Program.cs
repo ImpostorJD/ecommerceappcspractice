@@ -1,8 +1,11 @@
 using System.Diagnostics;
+using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
+Env.Load();
 
 builder.Services.AddControllers();
+builder.Configuration.AddEnvironmentVariables();
 
 builder.Services
     .AddOpenApi()

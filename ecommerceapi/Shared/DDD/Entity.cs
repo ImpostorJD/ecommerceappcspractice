@@ -1,7 +1,7 @@
 
 namespace Shared.DDD;
 
-//<summary>
+// <summary>
 // This class is a base class to be used to define metadata of each entity
 // </summary
 public abstract class Entity<T> : IEntity<T>
