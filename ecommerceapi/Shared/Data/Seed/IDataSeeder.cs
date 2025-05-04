@@ -1,6 +1,6 @@
 namespace Shared.Data.Seed;
 
-public interface ISeedSeeder
+public interface IDataSeeder
 {
     Task SeedAllAsync();
 }

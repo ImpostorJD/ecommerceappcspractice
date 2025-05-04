@@ -47,4 +47,20 @@ public class Product : Aggregate<Guid>
             AddDomainEvent(new ProductPriceChangedEvent(this));
         }
     }
+
+     public void Update(Product model)
+    {
+        ArgumentException.ThrowIfNullOrEmpty(model.Name);
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(model.Price);  
+
+        Name = model.Name;
+        Category = model.Category;
+        Description = model.Description;
+        ImageFile = model.ImageFile;
+
+        if (Price != model.Price){
+            Price = model.Price;
+            AddDomainEvent(new ProductPriceChangedEvent(this));
+        }
+    }
 }

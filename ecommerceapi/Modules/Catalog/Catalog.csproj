@@ -15,6 +15,10 @@
     <Folder Include ="Products\Models\"/>
     <Folder Include ="Products\Events\"/>
     <Folder Include ="Products\Data\"/>
+    <Folder Include ="Controllers\"/>
+    <Folder Include ="Application\"/>
+    <Folder Include ="Seed\"/>
+    <Folder Include ="Infrastructure\"/>
   </ItemGroup>
 
 </Project>

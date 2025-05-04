@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
-using System.Threading.Tasks;
 using Shared.Data;
+using Catalog.Infrastructure;
+using Catalog.Application;
 
 namespace Catalog;
 public static class CatalogModule
@@ -19,7 +20,10 @@ public static class CatalogModule
             // Register the DbContext with Npgsql
             services.AddDbContext<CatalogDbContext>(options =>
                 options.UseNpgsql(connectionString));
-                
+            services.AddScoped<IDataSeeder, CatalogDataSeeder>();  
+            services.AddScoped<ICatalogService, CatalogService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
+            
         return services;
     }
 

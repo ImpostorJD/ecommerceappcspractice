@@ -1,10 +1,8 @@
-using System.Diagnostics;
 using DotNetEnv;
 
 var builder = WebApplication.CreateBuilder(args);
 Env.Load();
 
-builder.Services.AddControllers();
 builder.Configuration.AddEnvironmentVariables();
 
 builder.Services
@@ -17,7 +15,9 @@ builder.Services
     })
     .AddCatalogModule(builder.Configuration)
     .AddBasketModule(builder.Configuration)
-    .AddOrderingModule(builder.Configuration);
+    .AddOrderingModule(builder.Configuration)
+    .AddControllers()
+    .AddApplicationPart(typeof (Catalog.Controllers.CatalogController).Assembly);
 
 var app = builder.Build();
 
@@ -30,6 +30,7 @@ else
     app.UseHsts();
 }
 
+
 app.UseCatalogModule()
     .UseBasketModule()
     .UseOrderingModule();
@@ -38,8 +39,10 @@ app.UseCors("AllowLocalhost")
     .UseStaticFiles()
     .UseHttpsRedirection()
     .UseAuthorization();
-    
-app.MapControllers();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller}/{action=Index}/{id?}"); 
 
 var clientAppPath = Path.GetFullPath(
     Path.Combine(
@@ -50,15 +53,14 @@ var clientAppPath = Path.GetFullPath(
     )
 );
 
-Console.WriteLine(clientAppPath);
 
-var reactProcess = new ProcessStartInfo("npm", "run client")
-{
+// var reactProcess = new ProcessStartInfo("npm", "run client")
+// {
 
-    WorkingDirectory = clientAppPath, 
-    UseShellExecute = true,
-    CreateNoWindow = false
-};
-Process.Start(reactProcess);
+//     WorkingDirectory = clientAppPath, 
+//     UseShellExecute = true,
+//     CreateNoWindow = false
+// };
+// Process.Start(reactProcess);
 
 app.Run(); 
