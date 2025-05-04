@@ -4,13 +4,9 @@ namespace Catalog.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class CatalogController : ControllerBase
+public class CatalogController(ICatalogService catalogService) : ControllerBase
 {
-    private readonly CatalogService _catalogService;
-
-    public CatalogController(CatalogService catalogService){
-        _catalogService = catalogService;
-    }
+    private readonly ICatalogService _catalogService = catalogService;
 
     [HttpGet]
     public async Task<IActionResult> GetAll()

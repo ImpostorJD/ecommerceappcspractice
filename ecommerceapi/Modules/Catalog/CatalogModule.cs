@@ -20,6 +20,7 @@ public static class CatalogModule
             // Register the DbContext with Npgsql
             services.AddDbContext<CatalogDbContext>(options =>
                 options.UseNpgsql(connectionString));
+                
             services.AddScoped<IDataSeeder, CatalogDataSeeder>();  
             services.AddScoped<ICatalogService, CatalogService>();
             services.AddScoped<IProductRepository, ProductRepository>();
