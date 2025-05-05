@@ -1,4 +1,5 @@
 using DotNetEnv;
+using Shared.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 Env.Load();
@@ -21,6 +22,7 @@ builder.Services
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionsHandler>();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

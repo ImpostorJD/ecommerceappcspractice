@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Shared.Data;
 using Catalog.Infrastructure;
 using Catalog.Application;
+using Shared.Data.Interceptor;
 
 namespace Catalog;
 public static class CatalogModule
@@ -18,8 +19,11 @@ public static class CatalogModule
         var connectionString = DatabaseConfig.GetConnectionString(configuration);
 
             // Register the DbContext with Npgsql
-            services.AddDbContext<CatalogDbContext>(options =>
-                options.UseNpgsql(connectionString));
+            services.AddDbContext<CatalogDbContext>(options => {
+                options.AddInterceptors(new AuditableSaveChangesInterceptor());
+                options.UseNpgsql(connectionString);
+
+            });
                 
             services.AddScoped<IDataSeeder, CatalogDataSeeder>();  
             services.AddScoped<ICatalogService, CatalogService>();

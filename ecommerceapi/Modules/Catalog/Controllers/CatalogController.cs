@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Shared.Middleware;
 
 namespace Catalog.Controllers;
 
@@ -12,51 +13,79 @@ public class CatalogController(ICatalogService catalogService) : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var products = await _catalogService.GetAllAsync();
+        if (products == null || !products.Any())
+        {
+            throw new NotFoundException("No products found.");
+        }
         return Ok(products);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
+        if (id == Guid.Empty)
+        {
+            throw new BadRequestException("Invalid product ID.");
+        }
+
         var product = await _catalogService.GetByIdAsync(id);
         if (product == null)
-            return Ok(product);
-        else
-            return NotFound();
+        {
+            throw new NotFoundException($"Product with ID {id} not found.");
+        }
+        return Ok(product);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] Product product)
     {
+        if (product == null)
+        {
+            throw new BadRequestException("Product data is required.");
+        }
+
         var created = await _catalogService.CreateAsync(product);
-        if (created)
-            return Created();   
-        else
-            return BadRequest("");
+        if (!created)
+        {
+            throw new BadRequestException("Product creation failed.");
+        }
+
+        return NoContent(); 
     }
+
 
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(Guid id, [FromBody] Product product)
     {
-        var value = await _catalogService.UpdateAsync(id, product);
-
-        if (value){
-            return Ok(value);
-        }else{
-            return NotFound("");
+        if (id == Guid.Empty || product == null)
+        {
+            throw new BadRequestException("Invalid product ID or data.");
         }
-        
+
+        var updated = await _catalogService.UpdateAsync(id, product);
+        if (!updated)
+        {
+            throw new NotFoundException($"Product with ID {id} not found.");
+        }
+
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-         var value = await _catalogService.DeleteAsync(id);
+        if (id == Guid.Empty)
+        {
+            throw new BadRequestException("Invalid product ID.");
+        }
 
-         if(value)
-            return Ok();
-        else
-            return NotFound();
+        var deleted = await _catalogService.DeleteAsync(id);
+        if (!deleted)
+        {
+            throw new NotFoundException($"Product with ID {id} not found.");
+        }
 
+        return NoContent(); 
     }
+
 }
